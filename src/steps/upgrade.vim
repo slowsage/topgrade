@@ -3,10 +3,15 @@
 " updater = {
 "   skip_prompts = true,
 " },
+
 if exists(":AstroUpdate")
-   echo "AstroUpdate"
-   AstroUpdate
-   quitall
+    echo "AstroUpdate"
+
+    " Disable all active LSP clients
+    lua for _, client in pairs(vim.lsp.get_active_clients()) do client.stop() end
+
+    AstroUpdate
+    quitall
 endif
 
 if exists(":MasonUpdate")
